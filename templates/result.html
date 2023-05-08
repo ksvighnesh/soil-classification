@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Soil Type Classification Results</title>
+	<link rel="stylesheet" type="text/css" href="../static/style.css">
+  </head>
+  <body>
+    <center>
+	<div class="container">
+		<h1>Soil Type Classification Results</h1>
+
+		<div class="main-c">
+		<div class="c1">
+			<h4>Uploaded Image</h4>
+			<img src="{{ url_for('uploaded_file', filename=file.filename) }}" alt="Uploaded Image" style="width:450px;height:450px;">	
+		</div>
+		
+		<div class="c2">
+		<p>The confidence percentages for all four soil types are:</p>
+		<br>
+			<table>
+				<tr>
+					<th>Soil Type</th>
+					<th>Probability</th>
+				</tr>
+				{% for i in range(4) %}
+				<tr>	
+					<td>{{ class_labels[i] }}</td>
+					<td>{{ "%.2f" % (percentages[class_labels[i]] ) }}% </td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+		</div>
+		<br>
+		<div class="c3">
+		<p class="res">The uploaded image has been classified as <strong>{{ soil_type }} Soil</strong>.</p>
+		<br>
+		<h3>The recommended crops for this soil type are:</h3>
+		<ul>
+			{% for crop in crops %}
+			<li>{{ crop }}</li>
+			{% endfor %}
+		</ul>
+		</div>
+		<button class="btn"><a href="{{ url_for('home') }}">Upload another image</a></button>
+	</div>
+    </center>
+  </body>
+</html>
